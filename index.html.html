@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B_caps and shoes</title>
+
+    <meta property="og:title" content="B_caps & Shoes | El mejor estilo">
+    <meta property="og:description" content="Encuentra las mejores gorras premium y tenis urbanos con el mejor estilo. ¡Haz tu pedido ahora!">
+    <meta property="og:type" content="website">
+
+    <style>
+        /* ==========================================
+           ESTILOS GENERALES (DISEÑO OSCURO PREMIUM)
+           ========================================== */
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Encabezado */
+        header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        header p {
+            color: #cccccc;
+            font-size: 1.1rem;
+            margin: 0 0 20px 0;
+        }
+
+        /* Menú de Navegación */
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #999999;
+        }
+
+        /* Botón flotante del Carrito */
+        .contenedor-carrito-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .btn-ver-carrito {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-ver-carrito:hover {
+            background-color: #e6e6e6;
+        }
+
+        /* Ventana Desplegable del Carrito */
+        .carrito-desplegable {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #141414;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            width: 320px;
+            padding: 15px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.7);
+            text-align: left;
+        }
+
+        .carrito-desplegable.activo {
+            display: block;
+        }
+
+        .carrito-desplegable h4 {
+            margin-top: 0;
+            border-bottom: 1px solid #333333;
+            padding-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .lista-items-carrito {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .lista-items-carrito li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #222222;
+            padding-bottom: 5px;
+        }
+
+        .btn-eliminar {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .total-carrito {
+            font-weight: bold;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            border-top: 1px solid #333333;
+            padding-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Botones de Pago */
+        .btn-pagar-paypal {
+            background-color: #0070ba;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 5px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-pagar-paypal:hover {
+            background-color: #005ea6;
+        }
+
+        .btn-pagar-whatsapp {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-pagar-whatsapp:hover {
+            background-color: #1ebe57;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #222222;
+            margin: 40px 0;
+        }
+
+        h2 {
+            border-left: 4px solid #ffffff;
+            padding-left: 12px;
+            margin-left: 40px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================
+           ESTILOS DEL CARRUSEL DE PRODUCTOS
+           ========================================== */
+        .carrusel-contenedor {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 10px 60px;
+        }
+
+        .carrusel-track-wrapper {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carrusel-track {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.4s ease-in-out;
+            width: max-content;
+        }
+
+        /* NUEVO DISEÑO: Tarjeta con fondo blanco premium para resaltar tus fotos */
+        .producto-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+            width: 220px;
+            box-sizing: border-box;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .producto-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* La imagen se mantiene 100% sólida y original, sin transparencias feas */
+        .producto-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        /* Texto oscuro adaptado al fondo blanco de la tarjeta */
+        .producto-card h3 {
+            font-size: 0.95rem;
+            margin: 10px 0;
+            font-weight: bold;
+            height: 38px;
+            overflow: hidden;
+            color: #111111;
+        }
+
+        .precio {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #e63946; /* Un toque de color rojo/vivo para el precio destaca mucho más */
+        }
+
+        /* Botón de agregar estilizado para resaltar sobre blanco */
+        .btn-carrito {
+            background-color: #111111;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .btn-carrito:hover {
+            background-color: #333333;
+        }
+
+        .flecha {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #111111;
+            color: white;
+            border: 1px solid #333333;
+            font-size: 1.5rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .flecha:hover {
+            background-color: #222222;
+            border-color: #ffffff;
+        }
+
+        .flecha-izq { left: 5px; }
+        .flecha-der { right: 5px; }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #555555;
+            font-size: 0.95rem;
+            border-top: 1px solid #111111;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="inicio">
+        <div class="contenedor-carrito-menu">
+            <button class="btn-ver-carrito" onclick="toggleCarrito()">
+                🛒 Ver carrito (<span id="contador-recuento">0</span>)
+            </button>
+            
+            <div class="carrito-desplegable" id="ventanita-carrito">
+                <h4>Tu Carrito</h4>
+                <ul class="lista-items-carrito" id="lista-carrito"></ul>
+                <div class="total-carrito">
+                    <span>Total:</span>
+                    <span id="precio-total">$0.00</span>
+                </div>
+                
+                <button class="btn-pagar-paypal" onclick="pagarConPayPal()">Pagar con PayPal</button>
+                <button class="btn-pagar-whatsapp" onclick="pagarConWhatsApp()">Hacer pedido por WhatsApp</button>
+            </div>
+        </div>
+
+        <h1>B_caps & Shoes</h1>
+        <p>El mejor estilo para tus pies y tu cabeza</p>
+        
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#gorras">Gorras</a>
+            <a href="#tenis">Tenis</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <main>
+        <section id="gorras">
+            <h2>Nuestras Gorras</h2>
+            <div class="carrusel-contenedor">
+                <button class="flecha flecha-izq" onclick="moverCarrusel('trackGorras', -1)">&#10094;</button>
+                <div class="carrusel-track-wrapper">
+                    <div class="carrusel-track" id="trackGorras">
+                        
+                        <div class="producto-card">
+                            <img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/04/gorra-barbas-hats-ct-rockstar-frontal-estrellas-cristales.jpg" alt="Gorra 1">
+                            <h3>Gorra Barbas CT Rockstar OG</h3>
+                            <p class="precio">$2500.00</p>
+                            <button class="btn-carrito" onclick="agregarAlCarrito('Gorra Barbas CT Rockstar', 2500)">Agregar al carrito</button>
+                        </div>
+
+                        <div class="producto-card">
+                            <img src="https://hatstricks.com.mx/cdn/shop/files/gorra-innedit-muratravis-electric-full-set-unitalla-negro-413.jpg?v=1778716575" alt="Gorra 2">
+                            <h3>Muratravis Electric OG</h3>
+                            <p class="precio">$1750.00</p>
+                            <button class="btn-carrito" onclick="agregarAlCarrito('Gorra Goorin Bros Original', 1750)">Agregar al carrito</button>
+                        </div>
+
+                        <div class="producto-card">
+                            <img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/04/gorra-snapback-barbas-hats-ct-racing-vista-frontal.jpg" alt="Gorra 3">
+                            <h3>Barbas Hats X CT CT Racing</h3>
+                            <p class="precio">2520.00</p>
+                            <button class="btn-carrito" onclick="agregarAlCarrito('Gorra Cerrada Red Sox', 2520)">Agregar al carrito</button>
+                        </div>
+
+                        <div class="producto-card">
+                            <img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/04/barbas-hats-b-star-rose-gold-black-snapback-front-view.jpg" alt="Gorra 4">
+                            <h3>Barbas Hats B Star Rose Gold</h3>
+                            <p class="precio">$4000.00</p>
+                            <button class="btn-carrito" onclick="agregarAlCarrito('Gamuza Premium D', 4000)">Agregar al carrito</button>
+                        </div>
+
+                        <div class="producto-card"><img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/04/barbas-hats-bbb-black-blue-neon-chrome-snapback.jpg" alt="Gorra 5"><h3>Barbas Hats BBB</h3><p class="precio">$3550.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Barbas Hats BBB', 3550)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/04/barbas-hats-scream-snapback-negra-bordado-3d-metalico.jpg" alt="Gorra 6"><h3>Barbas Hats Scream</h3><p class="precio">$3150.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Barbas Hats Scream', 3150)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/04/barbas-hats-b-star-graffiti-black-snapback-hat.jpg" alt="Gorra 7"><h3>Barbas Hats B-Star Graffiti</h3><p class="precio">$2660.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Barbas Hats B-Star Graffiti', 2660)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/04/barbas-hats-platinum-snowflake-black-suede-rhinestone-cap.jpg" alt="Gorra 8"><h3>Barbas Hats Platinum Snowflake</h3><p class="precio">$1960.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Barbas Hats Platinum Snowflake', 1960)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="https://barbashats-mx.com.mx/wp-content/uploads/2026/05/barbas-hats-77-last-edition-gorra-snapback-negra-vista-front.webp" alt="Gorra 9"><h3>Barbas Hats 77 Last Edition</h3><p class="precio">$2460.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Barbas Hats 77 Last Edition', 2460)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Gorra_10.jpg" alt="Gorra 10"><h3>Nueva Gorra Estilo 10</h3><p class="precio">$480.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nueva Gorra Estilo 10', 480)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Gorra_11.jpg" alt="Gorra 11"><h3>Nueva Gorra Estilo 11</h3><p class="precio">$499.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nueva Gorra Estilo 11', 499)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Gorra_12.jpg" alt="Gorra 12"><h3>Nueva Gorra Estilo 12</h3><p class="precio">$520.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nueva Gorra Estilo 12', 520)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Gorra_13.jpg" alt="Gorra 13"><h3>Nueva Gorra Estilo 13</h3><p class="precio">$600.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nueva Gorra Estilo 13', 600)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Gorra_14.jpg" alt="Gorra 14"><h3>Nueva Gorra Estilo 14</h3><p class="precio">$650.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nueva Gorra Estilo 14', 650)">Agregar al carrito</button></div>
+                    </div>
+                </div>
+                <button class="flecha flecha-der" onclick="moverCarrusel('trackGorras', 1)">&#10095;</button>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="tenis">
+            <h2>Nuestros Tenis</h2>
+            <div class="carrusel-contenedor">
+                <button class="flecha flecha-izq" onclick="moverCarrusel('trackTenis', -1)">&#10094;</button>
+                <div class="carrusel-track-wrapper">
+                    <div class="carrusel-track" id="trackTenis">
+                        
+                        <div class="producto-card">
+                            <img src="Tenis Urban Street.jpg" alt="Tenis 1">
+                            <h3>Tenis Urban Street</h3>
+                            <p class="precio">$1299.00</p>
+                            <button class="btn-carrito" onclick="agregarAlCarrito('Tenis Urban Street', 1299)">Agregar al carrito</button>
+                        </div>
+
+                        <div class="producto-card">
+                            <img src="Tenis_2.jpg" alt="Tenis 2">
+                            <h3>Tenis Sport Runner</h3>
+                            <p class="precio">$1599.00</p>
+                            <button class="btn-carrito" onclick="agregarAlCarrito('Tenis Sport Runner', 1599)">Agregar al carrito</button>
+                        </div>
+
+                        <div class="producto-card">
+                            <img src="Tenis_3.jpg" alt="Tenis 3">
+                            <h3>Tenis White Classic</h3>
+                            <p class="precio">$1150.00</p>
+                            <button class="btn-carrito" onclick="agregarAlCarrito('Tenis White Classic', 1150)">Agregar al carrito</button>
+                        </div>
+
+                        <div class="producto-card"><img src="Tenis_4.jpg" alt="Tenis 4"><h3>Nuevo Tenis Modelo 4</h3><p class="precio">$1350.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nuevo Tenis Modelo 4', 1350)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Tenis_5.jpg" alt="Tenis 5"><h3>Nuevo Tenis Modelo 5</h3><p class="precio">$1420.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nuevo Tenis Modelo 5', 1420)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Tenis_6.jpg" alt="Tenis 6"><h3>Nuevo Tenis Modelo 6</h3><p class="precio">$1280.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nuevo Tenis Modelo 6', 1280)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Tenis_7.jpg" alt="Tenis 7"><h3>Nuevo Tenis Modelo 7</h3><p class="precio">$1650.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nuevo Tenis Modelo 7', 1650)">Agregar al carrito</button></div>
+                        <div class="producto-card"><img src="Tenis_8.jpg" alt="Tenis 8"><h3>Nuevo Tenis Modelo 8</h3><p class="precio">$1799.00</p><button class="btn-carrito" onclick="agregarAlCarrito('Nuevo Tenis Modelo 8', 1799)">Agregar al carrito</button></div>
+                    </div>
+                </div>
+                <button class="flecha flecha-der" onclick="moverCarrusel('trackTenis', 1)">&#10095;</button>
+            </div>
+        </section>
+    </main>
+
+    <hr>
+
+    <footer id="contacto">
+        <p>&copy; 2026 B_caps and shoes - Todos los derechos reservados.</p>
+        <p>Contacto: info@bcapsandshoes.com</p>
+    </footer>
+
+    <script>
+        const posiciones = { trackGorras: 0, trackTenis: 0 };
+
+        function moverCarrusel(trackId, direccion) {
+            const track = document.getElementById(trackId);
+            const tarjetas = track.querySelectorAll('.producto-card');
+            const anchoTarjeta = tarjetas[0].getBoundingClientRect().width + 20; 
+            const wrapperAncho = track.parentElement.offsetWidth;
+            
+            const visibles = Math.floor(wrapperAncho / anchoTarjeta);
+            const maxDesplazamiento = tarjetas.length - visibles;
+
+            posiciones[trackId] += direccion;
+
+            if (posiciones[trackId] < 0) posiciones[trackId] = 0;
+            if (posiciones[trackId] > maxDesplazamiento) posiciones[trackId] = maxDesplazamiento;
+
+            track.style.transform = `translateX(-${posiciones[trackId] * anchoTarjeta}px)`;
+        }
+
+        let carrito = [];
+
+        function toggleCarrito() {
+            document.getElementById('ventanita-carrito').classList.toggle('activo');
+        }
+
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({ nombre, precio });
+            actualizarInterfazCarrito();
+        }
+
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            actualizarInterfazCarrito();
+        }
+
+        function obtenerSumaTotal() {
+            return carrito.reduce((suma, item) => suma + item.precio, 0);
+        }
+
+        function actualizarInterfazCarrito() {
+            const listaHTML = document.getElementById('lista-carrito');
+            const contadorHTML = document.getElementById('contador-recuento');
+            const totalHTML = document.getElementById('precio-total');
+
+            listaHTML.innerHTML = '';
+            carrito.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${item.nombre} ($${item.precio})</span> <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})">❌</button>`;
+                listaHTML.appendChild(li);
+            });
+
+            contadorHTML.innerText = carrito.length;
+            totalHTML.innerText = `$${obtenerSumaTotal()}.00`;
+        }
+
+        function pagarConPayPal() {
+            if (carrito.length === 0) return alert("Tu carrito está vacío");
+            const correoPaypal = "tu-correo-paypal@gmail.com"; 
+            window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${correoPaypal}&amount=${obtenerSumaTotal()}&currency_code=MXN&item_name=Pedido%20B_caps%20and%20shoes`, '_blank');
+        }
+
+        function pagarConWhatsApp() {
+            if (carrito.length === 0) return alert("Tu carrito está vacío");
+            const tuNumeroTelefono = "525500000000"; 
+            let textoProductos = "";
+            carrito.forEach(item => textoProductos += `- ${item.nombre}: $${item.precio}.00%0A`);
+            const mensaje = `¡Hola! Me interesa hacer un pedido en *B_caps & Shoes*:%0A%0A${textoProductos}%0A*Total:* $${obtenerSumaTotal()}.00 MXN`;
+            window.open(`https://wa.me/${tuNumeroTelefono}?text=${mensaje}`, '_blank');
+        }
+    </script>
+</body>
+</html>
